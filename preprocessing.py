@@ -3,13 +3,13 @@
 
 
 #%% MODULE BEGINS
-module_name = '<***>'
+module_name = 'preprocessing'
 
 '''
-Version: <***>
+Version: v0.1
 
 Description:
-    <***>
+    Preprocessing
 
 Authors:
     Sanele Harmon, Taeden Kitchens
@@ -35,15 +35,13 @@ if __name__ == "__main__":
 
 #other imports
 from   copy       import deepcopy as dpcpy
-
-'''
 from   matplotlib import pyplot as plt
 import mne
 import numpy  as np 
 import os
 import pandas as pd
 import seaborn as sns
-'''
+
 #%% USER INTERFACE              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 

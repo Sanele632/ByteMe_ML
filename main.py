@@ -1,36 +1,15 @@
 #Version: v0.1
 #Date Last Updated: 12-20-2023
 
-#%% STANDARDS   -DO NOT include this block in a new module
-'''
-Unless otherwise required, use the following guidelines
-* Style:
-    - Sort all alphabatically
-    - Write the code in aesthetically-pleasing style
-    - Names should be self-explanatory
-    - Add brief comments
-    - Use relative path
-    - Use generic coding instead of manually-entered constant values
-
-* Performance and Safety:
-    - Avoid if-block in a loop-block
-    - Avoid declarations in a loop-block
-    - Initialize an array if size is known
-
-    - Use immutable types
-    - Use deep-copy
-    - Use [None for i in Sequence] instead of [None]*len(Sequence)
-
-'''
 
 #%% MODULE BEGINS
-module_name = '<***>'
+module_name = 'main'
 
 '''
-Version: <***>
+Version: v0.1
 
 Description:
-    <***>
+    main
 
 Authors:
     Sanele Harmon, Taeden Kitchens
@@ -42,7 +21,7 @@ Doc:
     PA1
 
 Notes:
-    Preprocessing
+    main
 '''
 
 #%% IMPORTS                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -56,15 +35,13 @@ if __name__ == "__main__":
 
 #other imports
 from   copy       import deepcopy as dpcpy
-
-'''
 from   matplotlib import pyplot as plt
 import mne
 import numpy  as np 
 import os
 import pandas as pd
 import seaborn as sns
-'''
+
 #%% USER INTERFACE              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
