@@ -36,11 +36,10 @@ if __name__ == "__main__":
 #other imports
 from   copy       import deepcopy as dpcpy
 from   matplotlib import pyplot as plt
-import mne
-import numpy  as np 
-import os
 import pandas as pd
 import seaborn as sns
+from sklearn.preprocessing import MinMaxScaler
+
 
 #%% USER INTERFACE              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -62,8 +61,21 @@ import seaborn as sns
 
 
 #Class definitions Start Here
-
-
+class Preprocess:
+    def __init__(self, file_path):
+        self.file_path = file_path
+        
+    def load_file(self):
+        df = pd.read_csv(self.file_path)
+        return df
+    def celcius_to_farenheit(self, df):
+        df['MAX TEMP'] = (df['MAX TEMP'] - 32) * 5.0/9.0
+        df['MIN TEMP'] = (df['MIN TEMP'] - 32) * 5.0/9.0
+        df['TEMPERATURE'] = (df['TEMPERATURE'] - 32) * 5.0/9.0
+        df.to_excel('OUTPUT/Preprocessed Rainfall.xlsx', index=False)
+        return df
+    def plot(df):
+        pass
 
 #Function definitions Start Here
 def main():

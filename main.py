@@ -34,14 +34,7 @@ if __name__ == "__main__":
 
 
 #other imports
-from   copy       import deepcopy as dpcpy
-from   matplotlib import pyplot as plt
-import mne
-import numpy  as np 
-import os
-import pandas as pd
-import seaborn as sns
-
+import preprocessing
 #%% USER INTERFACE              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -71,9 +64,11 @@ def main():
 #
 
 #%% MAIN CODE                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#Main code start here
-
-
+data = preprocessing.Preprocess('Rainfall.csv')
+df = data.load_file()
+print(df)
+preprocessed_df = data.celcius_to_farenheit(df)
+print(preprocessed_df)
 
 #%% SELF-RUN                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #Main Self-run block
