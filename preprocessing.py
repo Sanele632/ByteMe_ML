@@ -69,14 +69,18 @@ class Preprocess:
         df = pd.read_csv(self.file_path)
         return df
     def celcius_to_farenheit(self, df):
-        df['MAX TEMP'] = (df['MAX TEMP'] - 32) * 5.0/9.0
-        df['MIN TEMP'] = (df['MIN TEMP'] - 32) * 5.0/9.0
-        df['TEMPERATURE'] = (df['TEMPERATURE'] - 32) * 5.0/9.0
+        df['MAX TEMP'] = (df['MAX TEMP'] * 9.0/5.0) + 32
+        df['MIN TEMP'] = (df['MIN TEMP'] * 9.0/5.0) + 32
+        df['TEMPERATURE'] = (df['TEMPERATURE'] * 9.0/5.0) + 32
         df.to_excel('OUTPUT/Preprocessed Rainfall.xlsx', index=False)
         return df
-    def plot(df):
-        pass
-
+    def plot(self, df, plot1, plot2, plot3, measurement):
+        sns.set()
+        fig, axs = plt.subplots(ncols=3, nrows=1, figsize=(18, 6))
+        sns.lineplot(data=df, x=df.index, y=plot1, ax=axs[0]).set(title=f'{plot1} ({measurement})')
+        sns.lineplot(data=df, x=df.index, y=plot2, ax=axs[1]).set(title=f'{plot2} ({measurement})')
+        sns.lineplot(data=df, x=df.index, y=plot3, ax=axs[2]).set(title=f'{plot3} ({measurement})')
+        plt.savefig(f"OUTPUT/{measurement} plots.png")
 #Function definitions Start Here
 def main():
     pass

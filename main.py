@@ -66,10 +66,12 @@ def main():
 #%% MAIN CODE                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 data = preprocessing.Preprocess('Rainfall.csv')
 df = data.load_file()
+data.plot(df, 'MAX TEMP', 'TEMPERATURE', 'MIN TEMP', 'Celcius')
 print(df)
+
 preprocessed_df = data.celcius_to_farenheit(df)
 print(preprocessed_df)
-
+data.plot(preprocessed_df, 'MAX TEMP', 'TEMPERATURE', 'MIN TEMP', 'Farenheit')
 #%% SELF-RUN                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #Main Self-run block
 if __name__ == "__main__":
