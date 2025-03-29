@@ -69,9 +69,9 @@ class Preprocess:
         df = pd.read_csv(self.file_path)
         return df
     def celcius_to_farenheit(self, df):
-        df['MAX TEMP'] = (df['MAX TEMP'] - 32) * 5.0/9.0
-        df['MIN TEMP'] = (df['MIN TEMP'] - 32) * 5.0/9.0
-        df['TEMPERATURE'] = (df['TEMPERATURE'] - 32) * 5.0/9.0
+        df['MAX TEMP'] = (df['MAX TEMP'] * 9.0/5.0) + 32
+        df['MIN TEMP'] = (df['MIN TEMP'] * 9.0/5.0) + 32
+        df['TEMPERATURE'] = (df['TEMPERATURE'] * 9.0/5.0) + 32
         df.to_excel('OUTPUT/Preprocessed Rainfall.xlsx', index=False)
         return df
     def targetReclass(self, df):
