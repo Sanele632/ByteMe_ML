@@ -66,16 +66,18 @@ def main():
 #%% MAIN CODE                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 data = preprocessing.Preprocess('Rainfall.csv')
 df = data.load_file()
+data.plot(df, 'MAX TEMP', 'TEMPERATURE', 'MIN TEMP', 'Celcius')
 print(df)
 
-df = data.celcius_to_farenheit(df)
+preprocessed_df = data.celcius_to_farenheit(df)
 print("\nAfter temperature conversion: ")
-print(df)
+print(preprocessed_df)
 
-df = data.targetReclass(df)
+preprocessed_df = data.targetReclass(preprocessed_df)
 print("\nAfter target reclassification: ")
-print(df)
+print(preprocessed_df)
 
+data.plot(preprocessed_df, 'MAX TEMP', 'TEMPERATURE', 'MIN TEMP', 'Farenheit')
 #%% SELF-RUN                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #Main Self-run block
 if __name__ == "__main__":

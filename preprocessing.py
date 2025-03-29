@@ -78,9 +78,14 @@ class Preprocess:
         df.replace({'yes': 1, 'no': 0}, inplace=True)
         df.to_excel('OUTPUT/Preprocessed Rainfall.xlsx', index=False)
         return df
-    def plot(df):
-        pass
-
+    
+    def plot(self, df, plot1, plot2, plot3, measurement):
+        sns.set()
+        fig, axs = plt.subplots(ncols=3, nrows=1, figsize=(18, 6))
+        sns.lineplot(data=df, x=df.index, y=plot1, ax=axs[0]).set(title=f'{plot1} ({measurement})')
+        sns.lineplot(data=df, x=df.index, y=plot2, ax=axs[1]).set(title=f'{plot2} ({measurement})')
+        sns.lineplot(data=df, x=df.index, y=plot3, ax=axs[2]).set(title=f'{plot3} ({measurement})')
+        plt.savefig(f"OUTPUT/{measurement} plots.png")
 #Function definitions Start Here
 def main():
     pass
