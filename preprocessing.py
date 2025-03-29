@@ -39,7 +39,7 @@ from   matplotlib import pyplot as plt
 import pandas as pd
 import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler
-
+from sklearn.model_selection import train_test_split
 
 #%% USER INTERFACE              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -74,6 +74,10 @@ class Preprocess:
         df['TEMPERATURE'] = (df['TEMPERATURE'] - 32) * 5.0/9.0
         df.to_excel('OUTPUT/Preprocessed Rainfall.xlsx', index=False)
         return df
+    def targetReclass(self, df):
+        df.replace({'yes': 1, 'no': 0}, inplace=True)
+        df.to_excel('OUTPUT/Preprocessed Rainfall.xlsx', index=False)
+        return df
     def plot(df):
         pass
 
@@ -95,3 +99,5 @@ if __name__ == "__main__":
     
     #TEST Code
     main()
+
+# %%

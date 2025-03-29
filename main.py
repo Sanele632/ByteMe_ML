@@ -67,8 +67,14 @@ def main():
 data = preprocessing.Preprocess('Rainfall.csv')
 df = data.load_file()
 print(df)
-preprocessed_df = data.celcius_to_farenheit(df)
-print(preprocessed_df)
+
+df = data.celcius_to_farenheit(df)
+print("\nAfter temperature conversion: ")
+print(df)
+
+df = data.targetReclass(df)
+print("\nAfter target reclassification: ")
+print(df)
 
 #%% SELF-RUN                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #Main Self-run block
