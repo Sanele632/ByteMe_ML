@@ -67,6 +67,7 @@ def main():
 data = preprocessing.Preprocess('Rainfall.csv')
 df = data.load_file()
 data.plot(df, 'MAX TEMP', 'TEMPERATURE', 'MIN TEMP', 'Celcius')
+data.histogram(df, 'RAINFALL', bins=10, title="Rainfall")
 print(df)
 
 preprocessed_df = data.celcius_to_farenheit(df)
@@ -78,6 +79,8 @@ print("\nAfter target reclassification: ")
 print(preprocessed_df)
 
 data.plot(preprocessed_df, 'MAX TEMP', 'TEMPERATURE', 'MIN TEMP', 'Farenheit')
+data.histogram(preprocessed_df, 'RAINFALL', bins=10, title="Rainfall")
+
 #%% SELF-RUN                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #Main Self-run block
 if __name__ == "__main__":

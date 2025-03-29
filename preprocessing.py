@@ -74,6 +74,7 @@ class Preprocess:
         df['TEMPERATURE'] = (df['TEMPERATURE'] * 9.0/5.0) + 32
         df.to_excel('OUTPUT/Preprocessed Rainfall.xlsx', index=False)
         return df
+    
     def targetReclass(self, df):
         df.replace({'yes': 1, 'no': 0}, inplace=True)
         df.to_excel('OUTPUT/Preprocessed Rainfall.xlsx', index=False)
@@ -86,6 +87,21 @@ class Preprocess:
         sns.lineplot(data=df, x=df.index, y=plot2, ax=axs[1]).set(title=f'{plot2} ({measurement})')
         sns.lineplot(data=df, x=df.index, y=plot3, ax=axs[2]).set(title=f'{plot3} ({measurement})')
         plt.savefig(f"OUTPUT/{measurement} plots.png")
+    
+    def histogram(self, df, column_name, bins=10, title=None, xlabel=None, ylabel=None):
+        plt.figure(figsize=(10,6))
+        plt.hist(df[column_name], bins=bins)
+        plt.title(title)
+        if xlabel:
+            plt.xlabel(xlabel)
+        else:
+            plt.xlabel(column_name)
+        if ylabel:
+            plt.ylabel(ylabel)
+        else:
+            plt.ylabel("Frequency")
+        plt.grid(axis='y', alpha=0.75)
+        plt.show()
 #Function definitions Start Here
 def main():
     pass
