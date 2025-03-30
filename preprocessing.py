@@ -34,8 +34,8 @@ if __name__ == "__main__":
 
 
 #other imports
-from   copy       import deepcopy as dpcpy
-from   matplotlib import pyplot as plt
+from copy import deepcopy as dpcpy
+from matplotlib import pyplot as plt
 import pandas as pd
 import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler
@@ -87,6 +87,17 @@ class Preprocess:
         sns.lineplot(data=df, x=df.index, y=plot2, ax=axs[1]).set(title=f'{plot2} ({measurement})')
         sns.lineplot(data=df, x=df.index, y=plot3, ax=axs[2]).set(title=f'{plot3} ({measurement})')
         plt.savefig(f"OUTPUT/{measurement} plots.png")
+    
+    def lineplot(self, df, *plots):
+        sns.set()
+        fig, axs = plt.subplots(ncols=4, nrows=2, figsize=(18, 10))
+        axs = axs.flatten()
+        for i, plot in enumerate(plots):
+            if plot in df.columns:  # Ensure column exists
+                sns.histplot(data=df, x=plot, ax=axs[i], kde=True).set(title=f'Frequency of {plot}')
+        else:
+            print(f"Warning: Column '{plot}' not found in DataFrame.")
+        
     
     def histogram(self, df, column_name, bins=10, title=None, xlabel=None, ylabel=None):
         plt.figure(figsize=(10,6))

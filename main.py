@@ -66,6 +66,8 @@ def main():
 #%% MAIN CODE                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 data = preprocessing.Preprocess('Rainfall.csv')
 df = data.load_file()
+print("Raw Data Distribution:")
+data.lineplot(df, "PRESSURE ", "DEWPOINT", "HUMIDITY", "CLOUD ", "SUNSHINE", "         WIND DIRECTION", "WIND SPEED")
 data.plot(df, 'MAX TEMP', 'TEMPERATURE', 'MIN TEMP', 'Celcius')
 data.histogram(df, 'RAINFALL', bins=10, title="Rainfall")
 print(df)
@@ -81,6 +83,7 @@ print(preprocessed_df)
 data.plot(preprocessed_df, 'MAX TEMP', 'TEMPERATURE', 'MIN TEMP', 'Farenheit')
 data.histogram(preprocessed_df, 'RAINFALL', bins=10, title="Rainfall")
 
+
 #%% SELF-RUN                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #Main Self-run block
 if __name__ == "__main__":
@@ -89,3 +92,5 @@ if __name__ == "__main__":
     
     #TEST Code
     main()
+
+# %%
