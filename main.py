@@ -64,7 +64,7 @@ def main():
 #
 
 #%% MAIN CODE                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-data = preprocessing.Preprocess('Rainfall.csv')
+data = preprocessing.Preprocess('INPUT/Rainfall.csv')
 df = data.load_file()
 print("Raw Data Distribution:")
 data.distribution(df, "PRESSURE ", "DEWPOINT", "HUMIDITY", "CLOUD ", "SUNSHINE", "         WIND DIRECTION", "WIND SPEED", "MAX TEMP",
