@@ -1,5 +1,4 @@
 #Version: v0.1
-#Date Last Updated: 3/24/25
 
 
 #%% MODULE BEGINS
@@ -15,7 +14,7 @@ Authors:
     Sanele Harmon, Taeden Kitchens
 
 Date Created     :  3/24/25
-Date Last Updated:  3/24/25
+Date Last Updated:  3/31/25
 
 Doc:
     PA1
@@ -90,13 +89,14 @@ class Preprocess:
     
     def distribution(self, df, *plots):
         sns.set()
-        fig, axs = plt.subplots(ncols=3, nrows=4, figsize=(30, 30))
+        fig, axs = plt.subplots(ncols=4, nrows=3, figsize=(15, 15))
         axs = axs.flatten()
         for i, plot in enumerate(plots):
             if plot in df.columns:  # Ensure column exists
                 sns.histplot(data=df, x=plot, ax=axs[i], kde=True).set(title=f'Frequency of {plot}')
         else:
             print(f"Warning: Column '{plot}' not found in DataFrame.")
+        plt.savefig(f"OUTPUT/Distribution Histograms.png")
         
     
     def histogram(self, df, column_name, bins=10, title=None, xlabel=None, ylabel=None):
@@ -112,7 +112,7 @@ class Preprocess:
         else:
             plt.ylabel("Frequency")
         plt.grid(axis='y', alpha=0.75)
-        plt.show()
+        plt.savefig(f"OUTPUT/{title}.png")
 #Function definitions Start Here
 def main():
     pass
