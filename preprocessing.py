@@ -88,9 +88,9 @@ class Preprocess:
         sns.lineplot(data=df, x=df.index, y=plot3, ax=axs[2]).set(title=f'{plot3} ({measurement})')
         plt.savefig(f"OUTPUT/{measurement} plots.png")
     
-    def lineplot(self, df, *plots):
+    def distribution(self, df, *plots):
         sns.set()
-        fig, axs = plt.subplots(ncols=4, nrows=2, figsize=(18, 10))
+        fig, axs = plt.subplots(ncols=3, nrows=4, figsize=(30, 30))
         axs = axs.flatten()
         for i, plot in enumerate(plots):
             if plot in df.columns:  # Ensure column exists

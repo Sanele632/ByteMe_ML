@@ -67,7 +67,8 @@ def main():
 data = preprocessing.Preprocess('Rainfall.csv')
 df = data.load_file()
 print("Raw Data Distribution:")
-data.lineplot(df, "PRESSURE ", "DEWPOINT", "HUMIDITY", "CLOUD ", "SUNSHINE", "         WIND DIRECTION", "WIND SPEED")
+data.distribution(df, "PRESSURE ", "DEWPOINT", "HUMIDITY", "CLOUD ", "SUNSHINE", "         WIND DIRECTION", "WIND SPEED", "MAX TEMP",
+              "MIN TEMP", "TEMPERATURE" ,"RAINFALL")
 data.plot(df, 'MAX TEMP', 'TEMPERATURE', 'MIN TEMP', 'Celcius')
 data.histogram(df, 'RAINFALL', bins=10, title="Rainfall")
 print(df)
@@ -79,9 +80,9 @@ print(preprocessed_df)
 preprocessed_df = data.targetReclass(preprocessed_df)
 print("\nAfter target reclassification: ")
 print(preprocessed_df)
+data.histogram(preprocessed_df, 'RAINFALL', bins=10, title="Rainfall")
 
 data.plot(preprocessed_df, 'MAX TEMP', 'TEMPERATURE', 'MIN TEMP', 'Farenheit')
-data.histogram(preprocessed_df, 'RAINFALL', bins=10, title="Rainfall")
 
 
 #%% SELF-RUN                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
