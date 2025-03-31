@@ -64,10 +64,10 @@ def main():
 #
 
 #%% MAIN CODE                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-data = preprocessing.Preprocess('Rainfall.csv')
+data = preprocessing.Preprocess('INPUT/Rainfall.csv')
 df = data.load_file()
 print("Raw Data Distribution:")
-data.lineplot(df, "PRESSURE ", "DEWPOINT", "HUMIDITY", "CLOUD ", "SUNSHINE", "         WIND DIRECTION", "WIND SPEED")
+data.lineplot(df, "PRESSURE ", "DEWPOINT", "HUMIDITY", "CLOUD ", "SUNSHINE", "WIND DIRECTION", "WIND SPEED")
 data.plot(df, 'MAX TEMP', 'TEMPERATURE', 'MIN TEMP', 'Celcius')
 data.histogram(df, 'RAINFALL', bins=10, title="Rainfall")
 print(df)
