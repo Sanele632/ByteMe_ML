@@ -82,8 +82,10 @@ print(preprocessed_df)
 data.histogram(preprocessed_df, 'RAINFALL', bins=10, title="Preprocessed Rainfall")
 
 data.plot(preprocessed_df, 'MAX TEMP', 'TEMPERATURE', 'MIN TEMP', 'Farenheit')
+data.heatmap(preprocessed_df)
 
-
+feature_df = preprocessed_df.drop(['DAY', 'MAX TEMP', 'MIN TEMP'], axis=1, inplace=True)
+print(feature_df)
 #%% SELF-RUN                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #Main Self-run block
 if __name__ == "__main__":

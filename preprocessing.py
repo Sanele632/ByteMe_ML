@@ -113,6 +113,11 @@ class Preprocess:
             plt.ylabel("Frequency")
         plt.grid(axis='y', alpha=0.75)
         plt.savefig(f"OUTPUT/{title}.png")
+    
+    def heatmap(self, df):
+        plt.figure(figsize=(10,10))
+        sns.heatmap(df.corr() > 0.8, annot = True, cbar = False)
+        plt.show
 #Function definitions Start Here
 def main():
     pass
