@@ -117,7 +117,7 @@ class Preprocess:
     def heatmap(self, df):
         plt.figure(figsize=(10,10))
         sns.heatmap(df.corr() > 0.8, annot = True, cbar = False)
-        plt.show
+        plt.savefig(f"OUTPUT/heat map.png")
 #Function definitions Start Here
 def main():
     pass
