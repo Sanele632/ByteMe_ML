@@ -71,12 +71,10 @@ class Preprocess:
         df['MAX TEMP'] = (df['MAX TEMP'] * 9.0/5.0) + 32
         df['MIN TEMP'] = (df['MIN TEMP'] * 9.0/5.0) + 32
         df['TEMPERATURE'] = (df['TEMPERATURE'] * 9.0/5.0) + 32
-        df.to_excel('OUTPUT/Preprocessed Rainfall.xlsx', index=False)
         return df
     
     def targetReclass(self, df):
         df.replace({'yes': 1, 'no': 0}, inplace=True)
-        df.to_excel('OUTPUT/Preprocessed Rainfall.xlsx', index=False)
         return df
     
     def plot(self, df, plot1, plot2, plot3, measurement):
