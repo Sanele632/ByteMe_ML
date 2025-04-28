@@ -39,7 +39,9 @@ import pandas as pd
 import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
-
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
 #%% USER INTERFACE              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -71,10 +73,12 @@ class Preprocess:
         df['MAX TEMP'] = (df['MAX TEMP'] * 9.0/5.0) + 32
         df['MIN TEMP'] = (df['MIN TEMP'] * 9.0/5.0) + 32
         df['TEMPERATURE'] = (df['TEMPERATURE'] * 9.0/5.0) + 32
+        df.to_excel('OUTPUT/Preprocessed Rainfall.xlsx', index=False)
         return df
     
     def targetReclass(self, df):
         df.replace({'yes': 1, 'no': 0}, inplace=True)
+        df.to_excel('OUTPUT/Preprocessed Rainfall.xlsx', index=False)
         return df
     
     def plot(self, df, plot1, plot2, plot3, measurement):
@@ -116,6 +120,26 @@ class Preprocess:
         plt.figure(figsize=(10,10))
         sns.heatmap(df.corr() > 0.8, annot = True, cbar = False)
         plt.savefig(f"OUTPUT/heat map.png")
+    
+    def split(self, df, feature_col, target, test_size = 0.2, random_state = 42):
+        df = df.replace([float('inf'), float('-inf')], pd.NA)
+        df = df.dropna()
+        X = df[feature_col]
+        y = df[target]
+        return train_test_split(X, y, test_size=test_size, random_state=random_state)
+    
+    def kNN(self, x, y, xTest, yTest, n):
+        knn = KNeighborsClassifier(n_neighbors=n)
+        knn.fit(x, y)
+        y_pred = knn.predict(xTest)
+        cm = confusion_matrix(yTest, y_pred)
+        plt.figure(figsize=(7,5))
+        sns.heatmap(cm, annot=True)
+        plt.xlabel=('Predicted')
+        plt.ylabel=('Truth')
+        score = knn.score(xTest, yTest)
+        return("Knn Score: ", score)
+    
 #Function definitions Start Here
 def main():
     pass
