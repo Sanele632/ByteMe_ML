@@ -37,11 +37,13 @@ from copy import deepcopy as dpcpy
 from matplotlib import pyplot as plt
 import pandas as pd
 import seaborn as sns
+from sklearn.discriminant_analysis import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
+import tensorflow as tf
 #%% USER INTERFACE              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -129,16 +131,41 @@ class Preprocess:
         return train_test_split(X, y, test_size=test_size, random_state=random_state)
     
     def kNN(self, x, y, xTest, yTest, n):
+        
         knn = KNeighborsClassifier(n_neighbors=n)
         knn.fit(x, y)
         y_pred = knn.predict(xTest)
         cm = confusion_matrix(yTest, y_pred)
         plt.figure(figsize=(7,5))
         sns.heatmap(cm, annot=True)
-        plt.xlabel=('Predicted')
-        plt.ylabel=('Truth')
+        plt.xlabel('Predicted')
+        plt.ylabel('Truth')
+        plt.title('KNN Classifier')
         score = knn.score(xTest, yTest)
-        return("Knn Score: ", score)
+        
+        return score
+
+    def ANN(self, xTr, xTst, yTr, yTst, hl, ep, bs):
+        scaler = StandardScaler()
+        xTr_scaled = scaler.fit_transform(xTr)
+        xTst_scaled = scaler.fit_transform(xTst)
+
+        model = tf.keras.Sequential()
+        model.add(tf.keras.layers.Input(shape=(xTr_scaled.shape[1],)))
+        for units in hl:
+            model.add(tf.keras.layers.Dense(units, activation = 'relu'))
+        model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
+
+        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+        history = model.fit(xTr_scaled, yTr, epochs=ep, batch_size=bs, validation_split=0.1)
+
+        loss, accuracy = model.evaluate(xTst_scaled, yTst)
+        print(f"Test Loss: {loss:.4f}")
+        print(f"Test Accuracy: {accuracy:.4f}")
+
+        return model, history
+
     
 #Function definitions Start Here
 def main():

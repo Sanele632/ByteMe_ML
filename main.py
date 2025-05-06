@@ -96,7 +96,10 @@ preprocessed_df.columns = preprocessed_df.columns.str.strip()
 
 X_train, X_test, y_train, y_test = data.split(feature_df, feature_col=["PRESSURE", "DEWPOINT", "HUMIDITY", "CLOUD", "SUNSHINE", 
                                                                        "WIND DIRECTION", "WIND SPEED", "TEMPERATURE"], target=["RAINFALL"])
-data.kNN(x=X_train, y=y_train, xTest=X_test, yTest=y_test, n=30)
+score=data.kNN(x=X_train, y=y_train, xTest=X_test, yTest=y_test, n=30)
+print("KNN Score: ", score)
+data.ANN(xTr=X_train, xTst=X_test, yTr=y_train, yTst=y_test, hl=[3,3], ep=5, bs=32)
+
 
 
 #%% SELF-RUN                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
