@@ -131,19 +131,37 @@ class Preprocess:
         return train_test_split(X, y, test_size=test_size, random_state=random_state)
     
     def kNN(self, x, y, xTest, yTest, n):
+        score_list = []
+        k=1
+
+        for k in range(1, len(xTest) + 1):
+            knn = KNeighborsClassifier(n_neighbors=n)
+            knn.fit(x, y)
+            y_pred = knn.predict(xTest)
+            cm = confusion_matrix(yTest, y_pred)
+            score = accuracy_score(yTest, y_pred)
+            score_list.append(score)
         
-        knn = KNeighborsClassifier(n_neighbors=n)
+        max_accuracy = max(score_list)
+        best_k = score_list.index(max_accuracy) + 1
+        knn = KNeighborsClassifier(n_neighbors= best_k)
         knn.fit(x, y)
-        y_pred = knn.predict(xTest)
-        cm = confusion_matrix(yTest, y_pred)
-        plt.figure(figsize=(7,5))
-        sns.heatmap(cm, annot=True)
-        plt.xlabel('Predicted')
-        plt.ylabel('Truth')
-        plt.title('KNN Classifier')
-        score = knn.score(xTest, yTest)
+        y_pred1 = knn.predict(xTest)
+        test_cm = confusion_matrix(yTest, y_pred1)
+
+        TP = test_cm[0, 0]  
+        FP = test_cm[0, 1]  
+        TN = test_cm[1, 1]  
+        FN = test_cm[1, 0]
+
+        precision = TP / (TP + FP) 
+        sensitivity = TP / (TP + FN) 
+        specificity = TN / (TN + FP)
+        F1 = 2 * (precision * sensitivity) / (precision + sensitivity)
+
+        performance_measures = [precision, sensitivity, specificity, F1]
+        return  performance_measures, best_k, score_list
         
-        return score
 
     def ANN(self, xTr, xTst, yTr, yTst, hl, ep, bs):
         scaler = StandardScaler()

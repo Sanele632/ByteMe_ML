@@ -97,8 +97,9 @@ preprocessed_df.columns = preprocessed_df.columns.str.strip()
 
 X_train, X_test, y_train, y_test = data.split(feature_df, feature_col=["PRESSURE", "DEWPOINT", "HUMIDITY", "CLOUD", "SUNSHINE", 
                                                                        "WIND DIRECTION", "WIND SPEED", "TEMPERATURE"], target=["RAINFALL"])
-score=data.kNN(x=X_train, y=y_train, xTest=X_test, yTest=y_test, n=30)
-print("KNN Score: ", score)
+metrics, bestK, slist = data.kNN(x=X_train, y=y_train, xTest=X_test, yTest=y_test, n=20)
+print(f'Results: \nBest K: {bestK} \nPrecision: {metrics[0]} \nSensitivity: {metrics[1]} \nSpecificity: {metrics[2]} \nF1: {metrics[3]} \n')
+
 data.ANN(xTr=X_train, xTst=X_test, yTr=y_train, yTst=y_test, hl=[3,3], ep=5, bs=32)
 
 
