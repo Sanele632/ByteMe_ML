@@ -1,7 +1,5 @@
 #Version: v0.1
-#Date Last Updated: 5/6/25
-
-#%% STANDARDS   -DO NOT include this block in a new module
+#Date Last Updated: 5/7/25
 
 
 #%% MODULE BEGINS
@@ -11,19 +9,18 @@ module_name = 'DT_SVM'
 Version: v0.1
 
 Description:
-    DT and ANN algorithms
-
+    ANN, DT, SVM, KNN algorithms 
 Authors:
     Sanele Harmon, Taeden Kitchens
 
 Date Created     :  4/19/25
-Date Last Updated:  5/6/25
+Date Last Updated:  5/7/25
 
 Doc:
     Project
 
 Notes:
-    implements SVM and Decision Tree
+    implements SVM, DT, KNN, and ANN
 '''
 
 #%% IMPORTS                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -48,7 +45,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import scale
 from sklearn.model_selection import cross_val_score
 import seaborn as sns
-
+from sklearn.neighbors import KNeighborsClassifier
 #%% USER INTERFACE              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -152,6 +149,44 @@ class ML:
          
         return y_test, y_pred
     
+    def KNN(X_train, y_train, X_val, X_test, y_val, y_test):
+        accuracy_scores = []
+        k = 1
+        
+        for k in range(1, len(X_val) + 1):
+            KNN = KNeighborsClassifier(n_neighbors=k)
+            KNN.fit(X_train, y_train)
+            y_pred = KNN.predict(X_val)
+            accuracy_scores.append(accuracy_score(y_val, y_pred))
+            
+        max_accuracy = max(accuracy_scores)
+        best_k = accuracy_scores.index(max_accuracy) + 1
+        knn = KNeighborsClassifier(n_neighbors= best_k)
+        knn.fit(X_train, y_train)
+        y_pred1 = knn.predict(X_test)
+        return y_test, y_pred1
+    '''
+    def ANN(self, xTr, xTst, yTr, yTst, hl, ep, bs):
+        scaler = StandardScaler()
+        xTr_scaled = scaler.fit_transform(xTr)
+        xTst_scaled = scaler.fit_transform(xTst)
+
+        model = tf.keras.Sequential()
+        model.add(tf.keras.layers.Input(shape=(xTr_scaled.shape[1],)))
+        for units in hl:
+            model.add(tf.keras.layers.Dense(units, activation = 'relu'))
+        model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
+
+        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+        history = model.fit(xTr_scaled, yTr, epochs=ep, batch_size=bs, validation_split=0.1)
+
+        loss, accuracy = model.evaluate(xTst_scaled, yTst)
+        print(f"Test Loss: {loss:.4f}")
+        print(f"Test Accuracy: {accuracy:.4f}")
+
+        return model, history
+    '''
     @staticmethod  
     def performance_measures(y_test, y_pred, Algorithm):
         test_cm = confusion_matrix(y_test, y_pred)
