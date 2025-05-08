@@ -162,6 +162,7 @@ class ML:
             
         max_accuracy = max(accuracy_scores)
         best_k = accuracy_scores.index(max_accuracy) + 1
+        print(f'Best k: {best_k}')
         knn = KNeighborsClassifier(n_neighbors= best_k)
         knn.fit(X_train, y_train)
         y_pred1 = knn.predict(X_test)
@@ -221,6 +222,8 @@ class ML:
         plt.tight_layout()
         plt.savefig(f"OUTPUT/{Algorithm} Performance Measures.png")
         plt.close()
+        
+        print(f'{Algorithm}\nPrecision:{precision} Sensitivity:{sensitivity}\nSpecificity:{specificity} F1:{F1}')
 
     def EpochCurve(model, history, Algorithm):
         plt.figure(figsize=(10, 4))

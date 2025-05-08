@@ -17,7 +17,7 @@ Date Created     :  3/24/25
 Date Last Updated:  3/31/25
 
 Doc:
-    PA1
+    Project
 
 Notes:
     main
@@ -89,7 +89,6 @@ data.heatmap(preprocessed_df)
 
 feature_df = preprocessed_df.drop(['DAY', 'MAX TEMP', 'MIN TEMP'], axis=1, inplace=True)
 feature_df = preprocessed_df
-feature_df.to_excel('OUTPUT/data.xlsx', index=False)
 feature_df.to_csv('OUTPUT/data.csv', index=False)
 print(feature_df)
 

@@ -8,19 +8,19 @@ module_name = 'preprocessing'
 Version: v0.1
 
 Description:
-    Preprocessing
+    Preprocessing and Feature Extraction
 
 Authors:
     Sanele Harmon, Taeden Kitchens
 
 Date Created     :  3/24/25
-Date Last Updated:  3/31/25
+Date Last Updated:  4/28/25
 
 Doc:
-    PA1
+    Project
 
 Notes:
-    Preprocessing
+    Preprocessing and Feature Extraction
 '''
 
 #%% IMPORTS                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
