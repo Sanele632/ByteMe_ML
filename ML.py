@@ -46,7 +46,7 @@ from sklearn.preprocessing import scale
 from sklearn.model_selection import cross_val_score
 import seaborn as sns
 from sklearn.neighbors import KNeighborsClassifier
-#import tensorflow as tf
+import tensorflow as tf
 #%% USER INTERFACE              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
