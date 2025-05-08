@@ -91,19 +91,16 @@ class Preprocess:
         sns.lineplot(data=df, x=df.index, y=plot3, ax=axs[2]).set(title=f'{plot3} ({measurement})')
         plt.savefig(f"OUTPUT/{measurement} plots.png")
     
-    def distribution(self, df, *plots):
+    def distribution(title, df, *plots):
         sns.set()
-        fig, axs = plt.subplots(ncols=4, nrows=3, figsize=(15, 15))
+        fig, axs = plt.subplots(ncols=4, nrows=2, figsize=(15, 11))
         axs = axs.flatten()
         for i, plot in enumerate(plots):
-            if plot in df.columns:  # Ensure column exists
-                sns.histplot(data=df, x=plot, ax=axs[i], kde=True).set(title=f'Frequency of {plot}')
-        else:
-            print(f"Warning: Column '{plot}' not found in DataFrame.")
-        plt.savefig(f"OUTPUT/Distribution Histograms.png")
+            sns.histplot(data=df, x=plot, ax=axs[i], kde=True).set(title=f'Frequency of {plot}')
+        plt.savefig(f"OUTPUT/{title} Histograms.png")
         
     
-    def histogram(self, df, column_name, bins=10, title=None, xlabel=None, ylabel=None):
+    def histogram(df, column_name, bins=10, title=None, xlabel=None, ylabel=None):
         plt.figure(figsize=(10,6))
         plt.hist(df[column_name], bins=bins)
         plt.title(title)
@@ -122,68 +119,7 @@ class Preprocess:
         plt.figure(figsize=(10,10))
         sns.heatmap(df.corr() > 0.8, annot = True, cbar = False)
         plt.savefig(f"OUTPUT/heat map.png")
-    '''
-    def split(self, df, feature_col, target, test_size = 0.2, random_state = 42):
-        df = df.replace([float('inf'), float('-inf')], pd.NA)
-        df = df.dropna()
-        X = df[feature_col]
-        y = df[target]
-        return train_test_split(X, y, test_size=test_size, random_state=random_state)
     
-    def kNN(self, x, y, xTest, yTest, n):
-        score_list = []
-        k=1
-
-        for k in range(1, len(xTest) + 1):
-            knn = KNeighborsClassifier(n_neighbors=n)
-            knn.fit(x, y)
-            y_pred = knn.predict(xTest)
-            cm = confusion_matrix(yTest, y_pred)
-            score = accuracy_score(yTest, y_pred)
-            score_list.append(score)
-        
-        max_accuracy = max(score_list)
-        best_k = score_list.index(max_accuracy) + 1
-        knn = KNeighborsClassifier(n_neighbors= best_k)
-        knn.fit(x, y)
-        y_pred1 = knn.predict(xTest)
-        test_cm = confusion_matrix(yTest, y_pred1)
-
-        TP = test_cm[0, 0]  
-        FP = test_cm[0, 1]  
-        TN = test_cm[1, 1]  
-        FN = test_cm[1, 0]
-
-        precision = TP / (TP + FP) 
-        sensitivity = TP / (TP + FN) 
-        specificity = TN / (TN + FP)
-        F1 = 2 * (precision * sensitivity) / (precision + sensitivity)
-
-        performance_measures = [precision, sensitivity, specificity, F1]
-        return  performance_measures, best_k, score_list
-        
-
-    def ANN(self, xTr, xTst, yTr, yTst, hl, ep, bs):
-        scaler = StandardScaler()
-        xTr_scaled = scaler.fit_transform(xTr)
-        xTst_scaled = scaler.fit_transform(xTst)
-
-        model = tf.keras.Sequential()
-        model.add(tf.keras.layers.Input(shape=(xTr_scaled.shape[1],)))
-        for units in hl:
-            model.add(tf.keras.layers.Dense(units, activation = 'relu'))
-        model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
-
-        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-
-        history = model.fit(xTr_scaled, yTr, epochs=ep, batch_size=bs, validation_split=0.1)
-
-        loss, accuracy = model.evaluate(xTst_scaled, yTst)
-        print(f"Test Loss: {loss:.4f}")
-        print(f"Test Accuracy: {accuracy:.4f}")
-
-        return model, history
-'''
     
 #Function definitions Start Here
 def main():
