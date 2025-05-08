@@ -45,8 +45,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import scale
 from sklearn.model_selection import cross_val_score
 import seaborn as sns
-import tensorflow as tf
-
+from sklearn.neighbors import KNeighborsClassifier
 #%% USER INTERFACE              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -150,21 +149,23 @@ class ML:
          
         return y_test, y_pred
     
-    def kNN(self, x, y, xTest, yTest, n):
+    def KNN(X_train, y_train, X_val, X_test, y_val, y_test):
+        accuracy_scores = []
+        k = 1
         
-        knn = KNeighborsClassifier(n_neighbors=n)
-        knn.fit(x, y)
-        y_pred = knn.predict(xTest)
-        cm = confusion_matrix(yTest, y_pred)
-        plt.figure(figsize=(7,5))
-        sns.heatmap(cm, annot=True)
-        plt.xlabel('Predicted')
-        plt.ylabel('Truth')
-        plt.title('KNN Classifier')
-        score = knn.score(xTest, yTest)
-        
-        return score
-
+        for k in range(1, len(X_val) + 1):
+            KNN = KNeighborsClassifier(n_neighbors=k)
+            KNN.fit(X_train, y_train)
+            y_pred = KNN.predict(X_val)
+            accuracy_scores.append(accuracy_score(y_val, y_pred))
+            
+        max_accuracy = max(accuracy_scores)
+        best_k = accuracy_scores.index(max_accuracy) + 1
+        knn = KNeighborsClassifier(n_neighbors= best_k)
+        knn.fit(X_train, y_train)
+        y_pred1 = knn.predict(X_test)
+        return y_test, y_pred1
+    '''
     def ANN(self, xTr, xTst, yTr, yTst, hl, ep, bs):
         scaler = StandardScaler()
         xTr_scaled = scaler.fit_transform(xTr)
@@ -185,7 +186,7 @@ class ML:
         print(f"Test Accuracy: {accuracy:.4f}")
 
         return model, history
-    
+    '''
     @staticmethod  
     def performance_measures(y_test, y_pred, Algorithm):
         test_cm = confusion_matrix(y_test, y_pred)

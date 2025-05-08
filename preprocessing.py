@@ -43,7 +43,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
-import tensorflow as tf
+#import tensorflow as tf
 #%% USER INTERFACE              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -122,7 +122,7 @@ class Preprocess:
         plt.figure(figsize=(10,10))
         sns.heatmap(df.corr() > 0.8, annot = True, cbar = False)
         plt.savefig(f"OUTPUT/heat map.png")
-    
+    '''
     def split(self, df, feature_col, target, test_size = 0.2, random_state = 42):
         df = df.replace([float('inf'), float('-inf')], pd.NA)
         df = df.dropna()
@@ -165,7 +165,7 @@ class Preprocess:
         print(f"Test Accuracy: {accuracy:.4f}")
 
         return model, history
-
+'''
     
 #Function definitions Start Here
 def main():

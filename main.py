@@ -94,23 +94,26 @@ feature_df.to_csv('OUTPUT/data.csv', index=False)
 print(feature_df)
 
 preprocessed_df.columns = preprocessed_df.columns.str.strip()
-'''
+
 
 X_train, X_test, y_train, y_test = data.split(feature_df, feature_col=["PRESSURE", "DEWPOINT", "HUMIDITY", "CLOUD", "SUNSHINE", 
                                                                        "WIND DIRECTION", "WIND SPEED", "TEMPERATURE"], target=["RAINFALL"])
-score=data.kNN(x=X_train, y=y_train, xTest=X_test, yTest=y_test, n=30)
-print("KNN Score: ", score)
-data.ANN(xTr=X_train, xTst=X_test, yTr=y_train, yTst=y_test, hl=[3,3], ep=5, bs=32)
 
+score=ML.kNN(x=X_train, y=y_train, xTest=X_test, yTest=y_test, n=30)
+print("KNN Score: ", score)
+
+data.ANN(xTr=X_train, xTst=X_test, yTr=y_train, yTst=y_test, hl=[3,3], ep=5, bs=32)
+'''
 data = ML.ML('OUTPUT/data.csv')
 df = data.load_file()
 X_train, y_train, X_val, X_test, y_val, y_test = data.split_data(df, (0.6, 0.2, 0.2), 11)
     
-DT_y_test, DT_y_pred = ML.DT(X_train, y_train, X_val, X_test, y_val, y_test)
-SVM_y_test, SVM_y_pred = ML.SVM(X_train, y_train, X_val, X_test, y_val, y_test)
-    
+DT_y_test, DT_y_pred = ML.ML.DT(X_train, y_train, X_val, X_test, y_val, y_test)
+SVM_y_test, SVM_y_pred = ML.ML.SVM(X_train, y_train, X_val, X_test, y_val, y_test)
+KNN_y_test, KNN_y_pred = ML.ML.KNN(X_train, y_train, X_val, X_test, y_val, y_test)    
 ML.ML.performance_measures(DT_y_test, DT_y_pred, "DT")
 ML.ML.performance_measures(SVM_y_test, SVM_y_pred, "SVM CV")
+ML.ML.performance_measures(KNN_y_test, KNN_y_pred, "KNN")
 
 
 
