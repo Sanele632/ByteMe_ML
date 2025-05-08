@@ -46,6 +46,7 @@ from sklearn.preprocessing import scale
 from sklearn.model_selection import cross_val_score
 import seaborn as sns
 from sklearn.neighbors import KNeighborsClassifier
+import tensorflow as tf
 #%% USER INTERFACE              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -165,10 +166,11 @@ class ML:
         knn.fit(X_train, y_train)
         y_pred1 = knn.predict(X_test)
         return y_test, y_pred1
-    '''
-    def ANN(self, xTr, xTst, yTr, yTst, hl, ep, bs):
+    
+    def ANN(xTr, xTst, xVal, yTr, yTst, yVal, hl, ep, bs):
         scaler = StandardScaler()
         xTr_scaled = scaler.fit_transform(xTr)
+        xVal_scaled = scaler.fit_transform(xVal)
         xTst_scaled = scaler.fit_transform(xTst)
 
         model = tf.keras.Sequential()
@@ -179,14 +181,14 @@ class ML:
 
         model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
-        history = model.fit(xTr_scaled, yTr, epochs=ep, batch_size=bs, validation_split=0.1)
+        history = model.fit(xTr_scaled, yTr, epochs=ep, batch_size=bs, validation_data=(xVal_scaled, yVal))
 
         loss, accuracy = model.evaluate(xTst_scaled, yTst)
         print(f"Test Loss: {loss:.4f}")
         print(f"Test Accuracy: {accuracy:.4f}")
 
         return model, history
-    '''
+    
     @staticmethod  
     def performance_measures(y_test, y_pred, Algorithm):
         test_cm = confusion_matrix(y_test, y_pred)
@@ -218,6 +220,28 @@ class ML:
 
         plt.tight_layout()
         plt.savefig(f"OUTPUT/{Algorithm} Performance Measures.png")
+        plt.close()
+
+    def EpochCurve(model, history, Algorithm):
+        plt.figure(figsize=(10, 4))
+        plt.subplot(1, 2, 1)
+        plt.plot(history.history['loss'], label='Train Loss')
+        plt.plot(history.history['val_loss'], label='Val Loss')
+        plt.xlabel('Epoch')
+        plt.ylabel('Loss')
+        plt.title('Training vs. Validation Loss')
+        plt.legend()
+
+        plt.subplot(1, 2, 2)
+        plt.plot(history.history['accuracy'], label='Train Acc')
+        plt.plot(history.history['val_accuracy'], label='Val Acc')
+        plt.xlabel('Epoch')
+        plt.ylabel('Accuracy')
+        plt.title('Training vs. Validation Accuracy')
+        plt.legend()
+
+        plt.tight_layout()
+        plt.savefig(f"OUTPUT/{Algorithm} Epoch Error Curve.png")
         plt.close()    
             
         
@@ -236,7 +260,6 @@ def main():
     
     ML.performance_measures(DT_y_test, DT_y_pred, "DT")
     ML.performance_measures(SVM_y_test, SVM_y_pred, "SVM CV")
-    
 #
 
 #%% MAIN CODE                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

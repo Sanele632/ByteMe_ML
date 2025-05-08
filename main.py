@@ -110,10 +110,15 @@ X_train, y_train, X_val, X_test, y_val, y_test = data.split_data(df, (0.6, 0.2, 
     
 DT_y_test, DT_y_pred = ML.ML.DT(X_train, y_train, X_val, X_test, y_val, y_test)
 SVM_y_test, SVM_y_pred = ML.ML.SVM(X_train, y_train, X_val, X_test, y_val, y_test)
-KNN_y_test, KNN_y_pred = ML.ML.KNN(X_train, y_train, X_val, X_test, y_val, y_test)    
+KNN_y_test, KNN_y_pred = ML.ML.KNN(X_train, y_train, X_val, X_test, y_val, y_test)
+ANN_Model, ANN_History = ML.ML.ANN(X_train, X_test, X_val, y_train, y_test, y_val, hl=[3,3], ep=5, bs=32)
+
+
 ML.ML.performance_measures(DT_y_test, DT_y_pred, "DT")
 ML.ML.performance_measures(SVM_y_test, SVM_y_pred, "SVM CV")
 ML.ML.performance_measures(KNN_y_test, KNN_y_pred, "KNN")
+ML.ML.EpochCurve(ANN_Model, ANN_History, "ANN Error")
+
 
 
 
